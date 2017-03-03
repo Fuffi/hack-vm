@@ -14,7 +14,11 @@ defmodule HackVm.Parser do
   end
 
   def parse_line(line) do
-    [command | args] = (line || "//") |> String.split()
+    [command | args] = case line do
+      "" -> ["//", nil]
+      _ -> line |> String.split()
+    end
+
     case command do
       # Arithmetic commands
       "add" -> %ArithmeticCommand{type: :add}

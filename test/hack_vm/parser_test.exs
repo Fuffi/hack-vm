@@ -3,7 +3,7 @@ defmodule HackVm.ParserTest do
   alias HackVm.Parser
 
   test "parses empty line" do
-    assert Parser.parse_line(nil) == %Parser.NoOp{}
+    assert Parser.parse_line("") == %Parser.NoOp{}
   end
 
   test "parses comment line" do

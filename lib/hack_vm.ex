@@ -1,7 +1,7 @@
 defmodule HackVm do
   alias HackVm.Parser
   alias HackVm.CodeWriter
-  
+
   def main(args \\ []) do
     # {opts, _, _} = OptionParser.parse(args,
     #   switches: [start: :integer, end: :integer, src: :string, dest: :string, update_tags: :string],
@@ -15,9 +15,12 @@ defmodule HackVm do
 
     input_lines = body |> String.split("\n")
     output_lines = input_lines |> Enum.map(fn(line) ->
+      IO.inspect line
       line |> Parser.parse_line() |> CodeWriter.write()
     end)
 
-    :ok = File.write(output_path, body)
+    output_body = output_lines |> Enum.join("\n")
+
+    :ok = File.write(output_path, output_body)
   end
 end
