@@ -1,6 +1,11 @@
 defmodule HackVm.CodeWriter do
+  alias HackVm.Parser.NoOp
   alias HackVm.Parser.ArithmeticCommand
   alias HackVm.Parser.StackCommand
+
+  def write(%NoOp{}) do
+    ""
+  end
 
   def write(%ArithmeticCommand{type: :add}) do
     """
