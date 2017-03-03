@@ -21,3 +21,4 @@ erl_crash.dump
 
 # Ignore output script
 /hack_vm
+/tmp

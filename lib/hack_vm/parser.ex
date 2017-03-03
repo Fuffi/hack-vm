@@ -9,8 +9,12 @@ defmodule HackVm.Parser do
     defstruct [:type, :segment, :index]
   end
 
+  defmodule NoOp do
+    defstruct []
+  end
+
   def parse_line(line) do
-    [command | args] = String.split(line)
+    [command | args] = (line || "//") |> String.split()
     case command do
       # Arithmetic commands
       "add" -> %ArithmeticCommand{type: :add}
@@ -37,6 +41,7 @@ defmodule HackVm.Parser do
           segment: parse_segment(segment),
           index: parse_index(index)
         }
+      "//" -> %NoOp{}
     end
   end
 
