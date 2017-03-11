@@ -5,10 +5,13 @@ defmodule HackVm.Mixfile do
     [app: :hack_vm,
      version: "0.1.0",
      elixir: "~> 1.4",
+     escript: escript,
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      deps: deps()]
   end
+
+  def escript, do: [main_module: HackVm]
 
   # Configuration for the OTP application
   #
