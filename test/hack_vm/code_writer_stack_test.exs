@@ -21,6 +21,16 @@ defmodule HackVm.CodeWriterStackTest do
     """)
   end
 
+  test "writes push code, statement: push this 0" do
+    command = %Parser.StackCommand{type: :push, segment: :this, index: 0}
+    code = CodeWriter.write(command) |> get_code()
+    # assert code == """
+    # this is stuff
+    # """
+  end
+
+  # pop commands
+
   test "writes pop code comment" do
     command = %Parser.StackCommand{type: :pop, segment: :constant, index: 0}
     code = CodeWriter.write(command)
@@ -37,5 +47,11 @@ defmodule HackVm.CodeWriterStackTest do
 
     // pop local 10
     """)
+  end
+
+  defp get_code(all_code) do
+    split_lines = all_code |> String.split("\n")
+    [_empty | [_comment | code]] = split_lines
+    code ++ [""] |> Enum.join("\n")
   end
 end
