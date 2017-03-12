@@ -23,8 +23,25 @@ defmodule HackVm.Parser do
       "or" -> %ArithmeticCommand{type: :or}
       "not" -> %ArithmeticCommand{type: :not}
       # Stack commands
-      "push" -> %StackCommand{type: :push, segment: :constant, index: 0}
-      "pop" -> %StackCommand{type: :pop, segment: :constant, index: 0}
+      "push" ->
+        [segment | index] = args
+        %StackCommand{type: :push, segment: parse_segment(segment), index: 0}
+      "pop" ->
+        [segment | index] = args
+        %StackCommand{type: :pop, segment: parse_segment(segment), index: 0}
+    end
+  end
+
+  defp parse_segment(value) do
+    case value do
+      "static" -> :static
+      "constant" -> :constant
+      "temp" -> :temp
+      "pointer" -> :pointer
+      "local" -> :local
+      "argument" -> :argument
+      "this" -> :this
+      "that" -> :that
     end
   end
 end
