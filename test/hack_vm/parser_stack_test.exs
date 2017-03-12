@@ -55,4 +55,16 @@ defmodule HackVm.ParserStackTest do
     expected = %Parser.StackCommand{type: :pop, segment: :that, index: 0}
     assert Parser.parse_line(line) == expected
   end
+
+  test "parses positive index" do
+    line = "push static 10"
+    expected = %Parser.StackCommand{type: :push, segment: :static, index: 10}
+    assert Parser.parse_line(line) == expected
+  end
+
+  test "parses negative index" do
+    line = "push static -100"
+    expected = %Parser.StackCommand{type: :push, segment: :static, index: -100}
+    assert Parser.parse_line(line) == expected
+  end
 end

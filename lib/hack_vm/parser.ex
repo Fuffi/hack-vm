@@ -1,11 +1,11 @@
 defmodule HackVm.Parser do
   defmodule ArithmeticCommand do
-    @enfoce_keys [:type]
+    @enforce_keys [:type]
     defstruct [:type]
   end
 
   defmodule StackCommand do
-    @enfoce_keys [:type, :segment, :index]
+    @enforce_keys [:type, :segment, :index]
     defstruct [:type, :segment, :index]
   end
 
@@ -24,11 +24,19 @@ defmodule HackVm.Parser do
       "not" -> %ArithmeticCommand{type: :not}
       # Stack commands
       "push" ->
-        [segment | index] = args
-        %StackCommand{type: :push, segment: parse_segment(segment), index: 0}
+        [segment , index] = args
+        %StackCommand{
+          type: :push,
+          segment: parse_segment(segment),
+          index: parse_index(index)
+        }
       "pop" ->
-        [segment | index] = args
-        %StackCommand{type: :pop, segment: parse_segment(segment), index: 0}
+        [segment , index] = args
+        %StackCommand{
+          type: :pop,
+          segment: parse_segment(segment),
+          index: parse_index(index)
+        }
     end
   end
 
@@ -43,5 +51,10 @@ defmodule HackVm.Parser do
       "this" -> :this
       "that" -> :that
     end
+  end
+
+  defp parse_index(value) do
+    {result, _remainder} = Integer.parse(value)
+    result
   end
 end
