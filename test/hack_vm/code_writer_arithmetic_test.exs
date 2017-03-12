@@ -3,11 +3,12 @@ defmodule HackVm.CodeWriterArithmeticTest do
   alias HackVm.CodeWriter
   alias HackVm.Parser
 
-  test "writes add code" do
+  test "writes add code comment" do
     command = %Parser.ArithmeticCommand{type: :add}
-    assert CodeWriter.write(command) == """
-    
+    code = CodeWriter.write(command)
+    assert code |> String.starts_with?("""
+
     // add
-    """
+    """)
   end
 end
