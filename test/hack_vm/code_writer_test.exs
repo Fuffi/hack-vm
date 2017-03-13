@@ -3,7 +3,7 @@ defmodule HackVm.CodeWriterTest do
   alias HackVm.CodeWriter
   alias HackVm.Parser
 
-  test "writes push code comment" do
+  test "writes empty line for NoOp command" do
     command = %Parser.NoOp{}
     code = CodeWriter.write(command)
     assert code == ""

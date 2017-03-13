@@ -14,7 +14,8 @@ defmodule HackVm.Parser do
   end
 
   def parse_line(line) do
-    [command | args] = case line do
+    trimmed_line = line |> String.trim()
+    [command | args] = case trimmed_line do
       "" -> ["//", nil]
       _ -> line |> String.split()
     end
