@@ -6,6 +6,22 @@ defmodule HackVm.SnippetWriter do
     """
   end
 
+  defp write_asm_snippet({:push_d_to_stack}) do
+    """
+    @SP
+    A=M
+    M=D
+
+    D=A+1
+    @SP
+    M=D
+    """
+  end
+
+  defp write_asm_snippet({:pop_stack_to_d}) do
+    
+  end
+
   defp write_asm_snippet({:constant_to_d, index}) do
     """
     @#{index}
@@ -20,18 +36,6 @@ defmodule HackVm.SnippetWriter do
     @#{index}
     A=D+A
     D=M
-    """
-  end
-
-  defp write_asm_snippet({:push_d_to_stack}) do
-    """
-    @SP
-    A=M
-    M=D
-
-    D=A+1
-    @SP
-    M=D
     """
   end
 end
