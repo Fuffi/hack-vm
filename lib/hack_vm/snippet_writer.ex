@@ -19,7 +19,16 @@ defmodule HackVm.SnippetWriter do
   end
 
   defp write_asm_snippet({:pop_stack_to_d}) do
-    
+    """
+    @SP
+    A=M
+    D=A-1
+
+    @SP
+    M=D
+    A=M
+    D=M
+    """
   end
 
   defp write_asm_snippet({:constant_to_d, index}) do
