@@ -47,6 +47,24 @@ defmodule HackVm.SnippetWriter do
     """
   end
 
+  def write_asm_snippet({:eq_d_to_stack}) do
+    """
+    @SP
+    A=M-1
+
+    D=M-D
+    @EQUALS
+    D;JEQ
+
+    D=-1
+
+    (EQUALS)
+    @SP
+    A=M-1
+    M=!D
+    """
+  end
+
   def write_asm_snippet({:constant_to_d, index}) do
     """
     @#{index}

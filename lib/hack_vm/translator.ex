@@ -33,4 +33,12 @@ defmodule HackVm.Translator do
       {:sub_d_from_stack}
     ]
   end
+
+  def translate(%ArithmeticCommand{type: :eq}) do
+    [
+      {:comment, "eq"},
+      {:pop_d},
+      {:eq_d_to_stack}
+    ]
+  end
 end
