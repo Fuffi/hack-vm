@@ -35,6 +35,14 @@ defmodule HackVm.SnippetWriter do
     """
     @SP
     A=M-1
+    M=M+D
+    """
+  end
+
+  def write_asm_snippet({:sub_d_from_stack}) do
+    """
+    @SP
+    A=M-1
     M=M-D
     """
   end

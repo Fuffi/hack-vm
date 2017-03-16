@@ -3,6 +3,7 @@ defmodule HackVm.CodeWriter do
   alias HackVm.Parser.ArithmeticCommand
   alias HackVm.Parser.StackCommand
   alias HackVm.Translator
+  alias HackVm.SnippetWriter
 
   def write(%NoOp{}) do
     ""
