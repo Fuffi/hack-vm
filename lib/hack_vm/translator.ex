@@ -18,6 +18,20 @@ defmodule HackVm.Translator do
     ]
   end
 
+  def translate(%ArithmeticCommand{type: :neg}) do
+    [
+      {:comment, "neg"},
+      {:unary_stack_operation, "-"}
+    ]
+  end
+
+  def translate(%ArithmeticCommand{type: :not}) do
+    [
+      {:comment, "not"},
+      {:unary_stack_operation, "!"}
+    ]
+  end
+
   def translate(%ArithmeticCommand{type: :add}) do
     [
       {:comment, "add"},

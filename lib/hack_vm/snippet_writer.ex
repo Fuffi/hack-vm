@@ -31,6 +31,14 @@ defmodule HackVm.SnippetWriter do
     """
   end
 
+  def write_asm_snippet({:unary_stack_operation, unary_operator}) do
+    """
+    @SP
+    A=M-1
+    M=#{unary_operator}M
+    """
+  end
+
   def write_asm_snippet({:binary_stack_operation, binary_operator}) do
     """
     @SP
