@@ -1,11 +1,12 @@
 defmodule HackVm.Translator do
   alias HackVm.Parser.StackCommand
+  alias HackVm.Parser.ArithmeticCommand
 
   def translate(%StackCommand{type: :push, segment: :constant, index: index}) do
     [
       {:comment, "push constant #{index}"},
       {:constant_to_d, index},
-      {:push_d_to_stack}
+      {:push_d}
     ]
   end
 
@@ -13,14 +14,14 @@ defmodule HackVm.Translator do
     [
       {:comment, "push this #{index}"},
       {:this_to_d, index},
-      {:push_d_to_stack}
+      {:push_d}
     ]
   end
 
   def translate(%ArithmeticCommand{type: :add}) do
     [
       {:comment, "add"},
-      {:pop_stack_to_d},
+      {:pop_d},
       {:add_d_to_stack}
     ]
   end
@@ -28,7 +29,7 @@ defmodule HackVm.Translator do
   def translate(%ArithmeticCommand{type: :sub}) do
     [
       {:comment, "sub"},
-      {:pop_stack_to_d},
+      {:pop_d},
       {:sub_d_from_stack}
     ]
   end
