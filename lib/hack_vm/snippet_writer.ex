@@ -57,11 +57,16 @@ defmodule HackVm.SnippetWriter do
     D;JEQ
 
     D=-1
+    @WRITE
+    0;JMP
 
     (EQUALS)
+    D=0
+
+    (WRITE)
     @SP
     A=M-1
-    M=!D
+    M=D
     """
   end
 
