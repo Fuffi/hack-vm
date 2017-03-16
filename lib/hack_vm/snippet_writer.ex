@@ -31,36 +31,28 @@ defmodule HackVm.SnippetWriter do
     """
   end
 
-  def write_asm_snippet({:add_d_to_stack}) do
+  def write_asm_snippet({:binary_stack_operation, binary_operator}) do
     """
     @SP
     A=M-1
-    M=M+D
+    M=M#{binary_operator}D
     """
   end
 
-  def write_asm_snippet({:sub_d_from_stack}) do
-    """
-    @SP
-    A=M-1
-    M=M-D
-    """
-  end
-
-  def write_asm_snippet({:eq_d_to_stack}) do
+  def write_asm_snippet({:compare_d_to_stack, jump_operator}) do
     """
     @SP
     A=M-1
 
     D=M-D
-    @EQUALS
-    D;JEQ
+    @COMPARE_IS_TRUE
+    D;#{jump_operator}
 
     D=-1
     @WRITE
     0;JMP
 
-    (EQUALS)
+    (COMPARE_IS_TRUE)
     D=0
 
     (WRITE)

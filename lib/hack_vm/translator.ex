@@ -22,7 +22,7 @@ defmodule HackVm.Translator do
     [
       {:comment, "add"},
       {:pop_d},
-      {:add_d_to_stack}
+      {:binary_stack_operation, "+"}
     ]
   end
 
@@ -30,7 +30,23 @@ defmodule HackVm.Translator do
     [
       {:comment, "sub"},
       {:pop_d},
-      {:sub_d_from_stack}
+      {:binary_stack_operation, "-"}
+    ]
+  end
+
+  def translate(%ArithmeticCommand{type: :and}) do
+    [
+      {:comment, "sub"},
+      {:pop_d},
+      {:binary_stack_operation, "&"}
+    ]
+  end
+
+  def translate(%ArithmeticCommand{type: :or}) do
+    [
+      {:comment, "sub"},
+      {:pop_d},
+      {:binary_stack_operation, "|"}
     ]
   end
 
@@ -38,7 +54,23 @@ defmodule HackVm.Translator do
     [
       {:comment, "eq"},
       {:pop_d},
-      {:eq_d_to_stack}
+      {:compare_d_to_stack, "JEQ"}
+    ]
+  end
+
+  def translate(%ArithmeticCommand{type: :lt}) do
+    [
+      {:comment, "lt"},
+      {:pop_d},
+      {:compare_d_to_stack, "JLT"}
+    ]
+  end
+
+  def translate(%ArithmeticCommand{type: :gt}) do
+    [
+      {:comment, "gt"},
+      {:pop_d},
+      {:compare_d_to_stack, "JGT"}
     ]
   end
 end
