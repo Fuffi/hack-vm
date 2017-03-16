@@ -9,10 +9,10 @@ defmodule HackVm.CodeWriter do
     ""
   end
 
-  def write(command) do
+  def write(command, line_number) do
     pseudo_snippets = Translator.translate(command)
     asm_snippets = pseudo_snippets |> Enum.map(fn(pseudo_snippet) ->
-      SnippetWriter.write_asm_snippet(pseudo_snippet)
+      SnippetWriter.write_asm_snippet(pseudo_snippet, line_number)
     end)
 
     asm_snippets |> Enum.join("\n")

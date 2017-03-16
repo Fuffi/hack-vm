@@ -1,6 +1,11 @@
 defmodule HackVm.Translator do
   alias HackVm.Parser.StackCommand
   alias HackVm.Parser.ArithmeticCommand
+  alias HackVm.Parser.NoOp
+
+  def translate(%NoOp{}) do
+    []
+  end
 
   def translate(%StackCommand{type: :push, segment: :constant, index: index}) do
     [

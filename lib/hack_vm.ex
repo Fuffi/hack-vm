@@ -14,9 +14,8 @@ defmodule HackVm do
     {:ok, body} = File.read(input_path)
 
     input_lines = body |> String.split("\n")
-    output_lines = input_lines |> Enum.map(fn(line) ->
-      IO.inspect line
-      line |> Parser.parse_line() |> CodeWriter.write()
+    output_lines = input_lines |> Enum.with_index(1) |> Enum.map(fn({line, line_number}) ->
+      line |> Parser.parse_line() |> CodeWriter.write(line_number)
     end)
 
     output_body = output_lines |> Enum.join("\n")
