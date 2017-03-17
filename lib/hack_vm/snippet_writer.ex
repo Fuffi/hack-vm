@@ -56,14 +56,14 @@ defmodule HackVm.SnippetWriter do
     @COMPARE_IS_TRUE_#{line_number}
     D;#{jump_operator}
 
-    D=-1
-    @WRITE
+    D=0
+    @WRITE_#{line_number}
     0;JMP
 
     (COMPARE_IS_TRUE_#{line_number})
-    D=0
+    D=-1
 
-    (WRITE)
+    (WRITE_#{line_number})
     @SP
     A=M-1
     M=D
