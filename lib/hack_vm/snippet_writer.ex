@@ -96,4 +96,14 @@ defmodule HackVm.SnippetWriter do
     D=A
     """
   end
+
+  def write_asm_snippet({:d_to_pointed_segment, segment, index}, _) do
+    """
+    @R13
+    M=D
+    @#{segment}
+    D=M
+
+    """
+  end
 end

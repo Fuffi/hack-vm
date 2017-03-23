@@ -63,6 +63,54 @@ defmodule HackVm.Translator do
     ]
   end
 
+  def translate(%StackCommand{type: :pop, segment: :local, index: index}) do
+    [
+      {:comment, "pop local #{index}"},
+      {:pop_d},
+      {:d_to_pointed_segment, "LCL", index}
+    ]
+  end
+
+  def translate(%StackCommand{type: :pop, segment: :argument, index: index}) do
+    [
+      {:comment, "pop argument #{index}"},
+      {:pop_d},
+      {:d_to_pointed_segment, "ARG", index}
+    ]
+  end
+
+  def translate(%StackCommand{type: :pop, segment: :this, index: index}) do
+    [
+      {:comment, "pop this #{index}"},
+      {:pop_d},
+      {:d_to_pointed_segment, "THIS", index}
+    ]
+  end
+
+  def translate(%StackCommand{type: :pop, segment: :that, index: index}) do
+    [
+      {:comment, "pop that #{index}"},
+      {:pop_d},
+      {:d_to_pointed_segment, "THAT", index}
+    ]
+  end
+
+  def translate(%StackCommand{type: :pop, segment: :temp, index: index}) do
+    [
+      {:comment, "pop temp #{index}"},
+      {:pop_d},
+      {:d_to_direct_segment, "5", index}
+    ]
+  end
+
+  def translate(%StackCommand{type: :pop, segment: :static, index: index}) do
+    [
+      {:comment, "pop static #{index}"},
+      {:pop_d},
+      {:d_to_direct_segment, "16", index}
+    ]
+  end
+
   def translate(%ArithmeticCommand{type: :neg}) do
     [
       {:comment, "neg"},
