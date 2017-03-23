@@ -70,20 +70,30 @@ defmodule HackVm.SnippetWriter do
     """
   end
 
-  def write_asm_snippet({:constant_to_d, index}, _) do
+  def write_asm_snippet({:pointed_segment_to_d, segment, index}, _) do
     """
-    @#{index}
-    D=A
-    """
-  end
-
-  def write_asm_snippet({:this_to_d, index}, _) do
-    """
-    @THIS
+    @#{segment}
     D=M
     @#{index}
     A=D+A
     D=M
+    """
+  end
+
+  def write_asm_snippet({:direct_segment_to_d, segment, index}, _) do
+    """
+    @#{segment}
+    D=A
+    @{index}
+    A=D+A
+    D=M
+    """
+  end
+
+  def write_asm_snippet({:constant_to_d, index}, _) do
+    """
+    @#{index}
+    D=A
     """
   end
 end

@@ -15,10 +15,50 @@ defmodule HackVm.Translator do
     ]
   end
 
+  def translate(%StackCommand{type: :push, segment: :local, index: index}) do
+    [
+      {:comment, "push local #{index}"},
+      {:pointed_segment_to_d, "LCL", index},
+      {:push_d}
+    ]
+  end
+
+  def translate(%StackCommand{type: :push, segment: :argument, index: index}) do
+    [
+      {:comment, "push argument #{index}"},
+      {:pointed_segment_to_d, "ARG", index},
+      {:push_d}
+    ]
+  end
+
   def translate(%StackCommand{type: :push, segment: :this, index: index}) do
     [
       {:comment, "push this #{index}"},
-      {:this_to_d, index},
+      {:pointed_segment_to_d, "THIS", index},
+      {:push_d}
+    ]
+  end
+
+  def translate(%StackCommand{type: :push, segment: :that, index: index}) do
+    [
+      {:comment, "push that #{index}"},
+      {:pointed_segment_to_d, "THAT", index},
+      {:push_d}
+    ]
+  end
+
+  def translate(%StackCommand{type: :push, segment: :temp, index: index}) do
+    [
+      {:comment, "push temp #{index}"},
+      {:direct_segment_to_d, "5", index},
+      {:push_d}
+    ]
+  end
+
+  def translate(%StackCommand{type: :push, segment: :static, index: index}) do
+    [
+      {:comment, "push static #{index}"},
+      {:direct_segment_to_d, "16", index},
       {:push_d}
     ]
   end
